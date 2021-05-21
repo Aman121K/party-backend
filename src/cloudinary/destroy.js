@@ -1,5 +1,4 @@
-const cloudinary = require('cloudinary')
-require("../config/cloudinary")
+const cloudinary = require("cloudinary");
 
 const destroy = (file) => {
   cloudinary.v2.uploader.destroy(file, (error, result) => {

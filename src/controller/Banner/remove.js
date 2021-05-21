@@ -1,24 +1,29 @@
 const createError = require("http-errors");
-const path = require("path");
-const models = require("../../models")
+const models = require("../../models");
 const { destroy } = require("../../cloudinary");
+const { getPublicId } = require("../../utils/cloudinary");
 
 const remove = async (req, res, next) => {
-    const bannerId = req.params.bannerId
-    try {
-
-        const banner = await models.Banner.findOne({ where: { id: bannerId } })
-        var splitArry = banner.imageUrl.split("/");
-        var final = splitArry[splitArry.length - 1];
-        var public_id = path.parse(final).name;
-        destroy(public_id);
-
-        res.status(200).json({ status: 'success', message: 'Banner Deleted' })
-
-    } catch (error) {
-        next(error)
-        console.log(error)
+  const bannerId = req.params.bannerId;
+  try {
+    const banner = await models.Banner.findOne({ where: { id: bannerId } });
+    if (banner === null || banner.imageUrl === null) {
+      throw new createError.NotFound("Image url not found");
     }
-}
 
-module.exports = remove
+    // extracting public ID from the image
+    getPublicId(banner.imageUrl);
+
+    const result = await models.Banner.destroy({ where: { id: bannerId } });
+    if (result === 1) {
+      // publicId comming from getpublicId utility function
+      destroy(publicId);
+    }
+
+    res.status(200).json({ status: "success", message: "Banner Deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = remove;
