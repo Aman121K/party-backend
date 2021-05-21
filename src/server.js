@@ -13,7 +13,7 @@ const path = require("path");
 const { notFound, errorHandling } = require("./errorHandler");
 const { MYSQL_OPTIONS, SESSION_OPTIONS } = require("./config");
 const { fileStorage, fileFilter } = require("./multer");
-const { banner, city } = require("./routes");
+const { banner, city, auth, profile } = require("./routes");
 
 var sessionStore = new MySQLStore(MYSQL_OPTIONS);
 
@@ -35,6 +35,8 @@ app.get("/", (req, res) => {
 // routes
 app.use(`/api/v1/banner`, banner);
 app.use(`/api/v1/city`, city);
+app.use(`/api/v1/auth`, auth);
+app.use(`/api/v1/profile`, profile);
 
 // error handling
 app.use(notFound);

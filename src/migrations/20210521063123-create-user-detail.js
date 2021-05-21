@@ -38,7 +38,7 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
       },
-      city: {
+      cityId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         foreignKey: true,

@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      UserDetail.belongsTo(models.City);
     }
   }
   UserDetail.init(
@@ -42,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
       },
-      city: {
+      cityId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         foreigKey: true,
