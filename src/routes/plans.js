@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const { create, remove, update, view } = require("../controller/City");
+const { remove, update, view, create } = require("../controller/Plans");
 // const { isAuth } = require("../../middlewares/auth");
 
 router.get("/", view);
 router.post("/create", create);
-router.delete("/remove/:cityId", remove);
-router.patch("/update/:cityId", update);
+router.delete("/remove/:planId", remove);
+router.patch("/update/:planId", update);
 
 module.exports = router;

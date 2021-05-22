@@ -1,6 +1,6 @@
 const models = require("../../models");
 
-const add = async (req, res, next) => {
+const create = async (req, res, next) => {
   const data = req.body;
   try {
     const result = await models.City.create(data);
@@ -10,4 +10,4 @@ const add = async (req, res, next) => {
   }
 };
 
-module.exports = add;
+module.exports = create;

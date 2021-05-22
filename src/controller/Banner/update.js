@@ -24,7 +24,7 @@ const update = async (req, res, next) => {
     // getting image url from cloudinary response
     const imageUrl = response.url;
 
-    const result = await models.Banner.update(
+    await models.Banner.update(
       { imageUrl },
       {
         where: { id: bannerId },

@@ -2,7 +2,7 @@ const createError = require("http-errors");
 const models = require("../../models");
 const { upload } = require("../../cloudinary");
 
-const add = async (req, res, next) => {
+const create = async (req, res, next) => {
   try {
     if (!req.file) {
       throw createError.UnprocessableEntity("No image provided");
@@ -20,4 +20,4 @@ const add = async (req, res, next) => {
   }
 };
 
-module.exports = add;
+module.exports = create;
