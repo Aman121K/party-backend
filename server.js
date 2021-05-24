@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("./config/cloudinary");
+require("./src/config/cloudinary");
 
 const express = require("express");
 const app = express();
@@ -10,10 +10,10 @@ var session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 const path = require("path");
 
-const { notFound, errorHandling } = require("./errorHandler");
-const { MYSQL_OPTIONS, SESSION_OPTIONS } = require("./config");
-const { fileStorage, fileFilter } = require("./multer");
-const { banner, city, auth, profile, plans } = require("./routes");
+const { notFound, errorHandling } = require("./src/errorHandler");
+const { MYSQL_OPTIONS, SESSION_OPTIONS } = require("./src/config");
+const { fileStorage, fileFilter } = require("./src/multer");
+const { banner, city, auth, profile, plans } = require("./src/routes");
 
 var sessionStore = new MySQLStore(MYSQL_OPTIONS);
 
