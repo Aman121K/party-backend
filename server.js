@@ -13,7 +13,7 @@ const path = require("path");
 const { notFound, errorHandling } = require("./src/errorHandler");
 const { MYSQL_OPTIONS, SESSION_OPTIONS } = require("./src/config");
 const { fileStorage, fileFilter } = require("./src/multer");
-const { banner, city, auth, profile, plans } = require("./src/routes");
+const { banner, city, auth, profile, plans, events } = require("./src/routes");
 
 var sessionStore = new MySQLStore(MYSQL_OPTIONS);
 
@@ -27,6 +27,7 @@ app.use(morgan("common"));
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("imageUrl")
 );
+app.set("json replacer", (k, v) => (v === null ? undefined : v));
 
 app.get("/", (req, res) => {
   res.send("test");
@@ -38,6 +39,7 @@ app.use(`/api/v1/city`, city);
 app.use(`/api/v1/auth`, auth);
 app.use(`/api/v1/profile`, profile);
 app.use(`/api/v1/plan`, plans);
+app.use(`/api/v1/event`, events);
 
 // error handling
 app.use(notFound);
