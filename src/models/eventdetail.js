@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   EventDetail.init(
     {
-      eventId: { type: DataTypes.INTEGER },
+      eventId: { type: DataTypes.INTEGER, onDelete: "CASCADE" },
       memberName: {
         type: DataTypes.STRING,
       },

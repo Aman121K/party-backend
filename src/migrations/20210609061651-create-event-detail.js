@@ -13,6 +13,7 @@ module.exports = {
         allowNull: false,
         foreignKey: true,
         references: { model: "Events", key: "id" },
+        onDelete: "CASCADE",
       },
       memberName: {
         type: Sequelize.STRING,

@@ -1,3 +1,5 @@
+const { Op } = require("sequelize");
+const { sequelize } = require("../models");
 const models = require("../models");
 
 module.exports = {
@@ -49,20 +51,67 @@ module.exports = {
     }
   },
 
-  // updateEvent: async (req, res, next) => {
-  //   const body = req.body;
-  //   const eventId = req.params.eventId
-  //   try {
-  //     const result = await models.Event.update({where: { id: eventId [and]  }}
-  //       { ...body, userId: req.session.userId },
-  //       {
-  //         include: [{ model: models.EventDetail, as: "details" }],
-  //       }
-  //     );
+  updateEvent: async (req, res, next) => {
+    const body = req.body;
+    const eventId = req.params.eventId;
+    const userId = req.session.userId;
 
-  //     res.status(200).json({ status: "success", result });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // },
+    try {
+      const result = await sequelize.transaction(async (t) => {
+        const event = await models.Event.update(
+          { ...body, userId },
+          {
+            where: {
+              [Op.and]: [
+                {
+                  id: eventId,
+                },
+                {
+                  userId: userId,
+                },
+              ],
+            },
+          },
+          { transaction: t }
+        );
+
+        const eventDetail = await models.EventDetail.update(
+          { ...body, userId },
+          { where: { eventId } },
+          { transaction: t }
+        );
+        console.log(t);
+        return { ...event, eventDetail };
+      });
+
+      res.status(200).json({ status: "success", result });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  deleteEvent: async (req, res, next) => {
+    const eventId = req.params.eventId;
+    const userId = req.session.userId;
+    const t = await sequelize.transaction();
+
+    try {
+      const event = await models.Event.destroy(
+        {
+          where: { [Op.and]: [{ id: eventId }, { userId }] },
+        },
+        { transaction: t }
+      );
+
+      await t.commit();
+
+      res.status(200).json({
+        status: "success",
+        message: "event deleted",
+      });
+    } catch (error) {
+      await t.rollback();
+      console.log(error);
+      next(error);
+    }
+  },
 };
