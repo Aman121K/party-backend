@@ -5,7 +5,6 @@ const upload = (file) => {
     cloudinary.uploader.upload(
       file,
       (result) => {
-        console.log(result);
         resolve({ url: result.secure_url, id: result.public_id });
       },
       { resource_type: "auto" }

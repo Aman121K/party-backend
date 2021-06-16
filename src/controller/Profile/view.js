@@ -28,7 +28,26 @@ const view = async (req, res, next) => {
       where: { id: req.session.userId },
     });
 
-    res.status(200).json({ status: "success", data: result });
+    let updatedData = {};
+
+    Object.assign(
+      updatedData,
+
+      { phone: result.phone },
+      { firstName: result.UserDetail.firstName },
+      { lastName: result.UserDetail.lastName },
+      { dob: result.UserDetail.dob },
+      { gender: result.UserDetail.gender },
+      { email: result.UserDetail.email },
+      { address: result.UserDetail.address },
+      { pincode: result.UserDetail.pincode },
+      { cityName: result.UserDetail.City.cityName },
+      { createdAt: result.createdAt }
+    );
+
+    console.log(updatedData);
+
+    res.status(200).json({ status: "success", data: updatedData });
   } catch (error) {
     next(error);
   }

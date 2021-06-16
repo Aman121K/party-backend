@@ -32,6 +32,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
+      next(error);
     }
   },
   createEvent: async (req, res, next) => {
@@ -48,6 +49,7 @@ module.exports = {
       res.status(201).json({ status: "success", result });
     } catch (error) {
       console.log(error);
+      next(error);
     }
   },
 
@@ -86,6 +88,7 @@ module.exports = {
 
       res.status(200).json({ status: "success", result });
     } catch (error) {
+      console.log(error);
       console.log(error);
     }
   },

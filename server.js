@@ -13,7 +13,18 @@ const path = require("path");
 const { notFound, errorHandling } = require("./src/errorHandler");
 const { MYSQL_OPTIONS, SESSION_OPTIONS } = require("./src/config");
 const { fileStorage, fileFilter } = require("./src/multer");
-const { banner, city, auth, profile, plans, events } = require("./src/routes");
+const {
+  banner,
+  city,
+  auth,
+  profile,
+  plans,
+  events,
+  cakes,
+  items,
+  activePlan,
+  customPlan,
+} = require("./src/routes");
 
 var sessionStore = new MySQLStore(MYSQL_OPTIONS);
 
@@ -27,6 +38,8 @@ app.use(morgan("common"));
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("imageUrl")
 );
+
+// eleminates the null fields from the response object
 app.set("json replacer", (k, v) => (v === null ? undefined : v));
 
 app.get("/", (req, res) => {
@@ -40,6 +53,10 @@ app.use(`/api/v1/auth`, auth);
 app.use(`/api/v1/profile`, profile);
 app.use(`/api/v1/plan`, plans);
 app.use(`/api/v1/event`, events);
+app.use(`/api/v1/product`, cakes);
+app.use(`/api/v1/item`, items);
+app.use(`/api/v1/activePlan`, activePlan);
+app.use(`/api/v1/customPlan`, customPlan);
 
 // error handling
 app.use(notFound);

@@ -9,8 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Event.hasOne(models.EventDetail, { foreignKey: "eventId", as:"details" });
-      Event.belongsTo(models.City, {foreignKey : "cityId", as:"city"});
+      Event.hasOne(models.EventDetail, {
+        foreignKey: "eventId",
+        as: "details",
+      });
+      Event.belongsTo(models.City, { foreignKey: "cityId", as: "city" });
     }
   }
   Event.init(

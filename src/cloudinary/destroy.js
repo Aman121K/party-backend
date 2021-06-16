@@ -7,3 +7,4 @@ const destroy = (file) => {
 };
 
 module.exports = destroy;
+  
