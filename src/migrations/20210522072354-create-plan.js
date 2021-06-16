@@ -22,6 +22,12 @@ module.exports = {
       price: {
         type: Sequelize.DECIMAL,
       },
+      cakeWeight: {
+        type: Sequelize.STRING,
+      },
+      cakePlan: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

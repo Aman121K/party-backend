@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: { type: DataTypes.STRING, allowNull: false },
       cakeImageUrl: { type: DataTypes.STRING, allowNull: false },
+      cakeWeight: { type: DataTypes.STRING, allowNull: false },
+      cakePrice: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       sequelize,

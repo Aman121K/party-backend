@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
-const { sequelize } = require("../models");
-const models = require("../models");
+const { sequelize } = require("../../models");
+const models = require("../../models");
 
 module.exports = {
   userEvents: async (req, res, next) => {

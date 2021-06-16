@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Plan.hasMany(models.PlanItem, { foreignKey: "planId", as: "items" });
     }
   }
   Plan.init(
@@ -17,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       members: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
       validity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
       price: { type: DataTypes.DECIMAL, allowNull: false },
+      cakeWeight: { type: DataTypes.STRING, allowNull: true },
+      cakeName: { type: DataTypes.STRING, allowNull: true },
     },
     {
       sequelize,

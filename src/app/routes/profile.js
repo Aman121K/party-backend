@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { view, create, update } = require("../controller/Profile");
-const { isAuth } = require("../middlewares/auth");
+const { isAuth } = require("../../middlewares/auth");
 
 router.get("/", isAuth, view);
 router.post("/create", isAuth, create);

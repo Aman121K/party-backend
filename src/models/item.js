@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Item.init(
     {
       itemName: { type: DataTypes.STRING, allowNull: false },
+      itemImageUrl: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,

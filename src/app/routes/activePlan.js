@@ -4,7 +4,7 @@ const {
   create,
   getSingleActivePlan,
 } = require("../controller/activePlan");
-const { isAuth } = require("../middlewares/auth");
+const { isAuth } = require("../../middlewares/auth");
 
 router.get("/all", isAuth, allActivePlans);
 router.get("/single/:activePlanId", isAuth, getSingleActivePlan);

@@ -24,7 +24,7 @@ const {
   items,
   activePlan,
   customPlan,
-} = require("./src/routes");
+} = require("./src/app/routes");
 
 var sessionStore = new MySQLStore(MYSQL_OPTIONS);
 

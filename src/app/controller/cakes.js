@@ -1,6 +1,6 @@
-const models = require("../models");
+const models = require("../../models");
 const createError = require("http-errors");
-const { upload, destroy } = require("../cloudinary");
+const { upload, destroy } = require("../../cloudinary");
 
 module.exports = {
   allCakes: async (req, res, next) => {

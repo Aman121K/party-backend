@@ -4,7 +4,7 @@ const {
   getUserCustomPlans,
   singleCusomPlan,
 } = require("../controller/customPlan");
-const { isAuth } = require("../middlewares/auth");
+const { isAuth } = require("../../middlewares/auth");
 
 router.get("/userCustomPlans", isAuth, getUserCustomPlans);
 router.get("/singleCustomPlan/:customPlanId", isAuth, singleCusomPlan);
