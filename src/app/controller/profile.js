@@ -76,7 +76,7 @@ module.exports = {
         { phone: result.phone },
         { firstName: result.UserDetail.firstName },
         { lastName: result.UserDetail.lastName },
-        { dob: result.UserDetail.dob },
+        { dob: new Date(result.UserDetail.dob).toDateString() },
         { gender: result.UserDetail.gender },
         { email: result.UserDetail.email },
         { address: result.UserDetail.address },

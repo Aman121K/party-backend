@@ -85,4 +85,33 @@ module.exports = {
       next(error);
     }
   },
+
+  singlePlan: async (req, res, next) => {
+    const planId = req.params.planId;
+    try {
+      const result = await models.Plan.findOne({
+        where: { id: planId },
+        include: [
+          {
+            model: models.PlanItem,
+            as: "items",
+            attributes: ["id"],
+            include: [
+              {
+                model: models.Item,
+                as: "item",
+                attributes: ["itemName", "itemImageUrl"],
+              },
+            ],
+          },
+        ],
+      });
+      res.status(200).json({
+        status: "success",
+        plan: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
 };

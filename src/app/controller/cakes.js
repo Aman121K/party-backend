@@ -43,7 +43,7 @@ module.exports = {
     try {
       const result = await models.Cake.update(body, { where: { id: cakeId } });
 
-      res.status(200).json({ status: "success", result });
+      res.status(200).json({ status: "success", message : "cake details updated" });
     } catch (error) {
       next(error);
     }

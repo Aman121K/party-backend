@@ -36,7 +36,6 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING,
-        unique: true,
       },
       cityId: {
         allowNull: false,

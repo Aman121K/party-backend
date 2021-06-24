@@ -53,7 +53,7 @@ app.use(`/api/v1/auth`, auth);
 app.use(`/api/v1/profile`, profile);
 app.use(`/api/v1/plan`, plans);
 app.use(`/api/v1/event`, events);
-app.use(`/api/v1/product`, cakes);
+app.use(`/api/v1/cake`, cakes);
 app.use(`/api/v1/item`, items);
 app.use(`/api/v1/activePlan`, activePlan);
 app.use(`/api/v1/customPlan`, customPlan);

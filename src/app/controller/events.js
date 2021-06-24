@@ -35,6 +35,7 @@ module.exports = {
       next(error);
     }
   },
+
   createEvent: async (req, res, next) => {
     const body = req.body;
 
@@ -92,6 +93,8 @@ module.exports = {
       console.log(error);
     }
   },
+ 
+ 
   deleteEvent: async (req, res, next) => {
     const eventId = req.params.eventId;
     const userId = req.session.userId;

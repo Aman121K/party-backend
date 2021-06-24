@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       });
       ActivePlan.belongsToMany(models.Event, {
         through: "ActivePlanEvents",
-        includeIgnoreAttributes: false,
       });
     }
   }
