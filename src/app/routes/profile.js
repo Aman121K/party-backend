@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { view, create, update } = require("../controller/Profile");
+const { view, create, update } = require("../controller/profile");
 const { isAuth } = require("../../middlewares/auth");
 
 router.get("/", isAuth, view);

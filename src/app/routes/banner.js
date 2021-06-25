@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { create, remove, update, view } = require("../controller/Banner");
+const { create, remove, update, view } = require("../controller/banner");
 // const { isAuth } = require("../../middlewares/auth");
 
 router.get("/", view);

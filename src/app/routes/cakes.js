@@ -4,7 +4,7 @@ const {
   allCakes,
   updateCake,
   updateCakeImage,
-} = require("../controller/Cakes");
+} = require("../controller/cakes");
 
 router.get("/allCakes", allCakes);
 router.post("/addCake", addCake);

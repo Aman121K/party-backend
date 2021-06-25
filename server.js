@@ -40,7 +40,7 @@ app.use(
 );
 
 // eleminates the null fields from the response object
-app.set("json replacer", (k, v) => (v === null ? undefined : v));
+// app.set("json replacer", (k, v) => (v === null ? undefined : v));
 
 app.get("/", (req, res) => {
   res.send("test");

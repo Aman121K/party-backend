@@ -5,7 +5,7 @@ const {
   view,
   create,
   singlePlan,
-} = require("../controller/Plans");
+} = require("../controller/plans");
 // const { isAuth } = require("../../middlewares/auth");
 
 router.get("/", view);
