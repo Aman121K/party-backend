@@ -1,15 +1,18 @@
 const { Op } = require("sequelize");
 const models = require("../../models");
 const { sequelize } = require("../../models");
+const { activePlanSchema } = require("../validation");
 
 module.exports = {
   create: async (req, res, next) => {
     const body = req.body;
     const userId = req.session.userId;
     try {
+      const validatedBody = await activePlanSchema.validateAsync(body);
+      console.log(validatedBody);
       const result = await sequelize.transaction(async (t) => {
         const createActivePlan = await models.ActivePlan.create(
-          { ...body, userId },
+          { ...validatedBody, userId },
           {
             transaction: t,
           }
@@ -34,6 +37,7 @@ module.exports = {
         message: "order place and plan created",
       });
     } catch (error) {
+      if (error.isJoi) error.status = 422;
       next(error);
     }
   },
@@ -70,7 +74,6 @@ module.exports = {
         activePlans: result,
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   },

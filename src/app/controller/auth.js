@@ -1,9 +1,11 @@
 const models = require("../../models");
 const { logOut, logIn } = require("../../middlewares/auth");
+const { loginSchema } = require("../validation");
 
 module.exports = {
   login: async (req, res, next) => {
     try {
+      await loginSchema.validateAsync(req.body);
       const user = await models.User.findOne({
         where: { phone: req.body.phone },
       });
@@ -20,6 +22,7 @@ module.exports = {
         message: "session started",
       });
     } catch (error) {
+      if (error.isJoi) error.status = 422;
       next(error);
     }
   },

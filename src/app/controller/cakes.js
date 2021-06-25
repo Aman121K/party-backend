@@ -1,6 +1,7 @@
 const models = require("../../models");
 const createError = require("http-errors");
 const { upload, destroy } = require("../../cloudinary");
+const { cakeSchema } = require("../validation");
 
 module.exports = {
   allCakes: async (req, res, next) => {
@@ -17,6 +18,8 @@ module.exports = {
   addCake: async (req, res, next) => {
     const body = req.body;
     try {
+      await cakeSchema.validateAsync(body);
+
       if (!req.file) {
         throw createError.UnprocessableEntity("No image provided");
       }
@@ -43,7 +46,9 @@ module.exports = {
     try {
       const result = await models.Cake.update(body, { where: { id: cakeId } });
 
-      res.status(200).json({ status: "success", message : "cake details updated" });
+      res
+        .status(200)
+        .json({ status: "success", message: "cake details updated" });
     } catch (error) {
       next(error);
     }

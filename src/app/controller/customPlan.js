@@ -20,7 +20,8 @@ module.exports = {
         body.items.map((el) => {
           itemsArry.push({
             customPlanId: createCustomPlan.id,
-            itemName: el,
+            itemName: el.itemName,
+            itemImageUrl: el.itemImageUrl,
           });
         });
 
