@@ -1,6 +1,8 @@
 const models = require("../../models");
 const { logOut, logIn } = require("../../middlewares/auth");
 const { loginSchema } = require("../validation");
+const { signAccessToken } = require("../../middlewares/jwt");
+const { token } = require("morgan");
 
 module.exports = {
   login: async (req, res, next) => {
@@ -17,9 +19,16 @@ module.exports = {
         logIn(req, addUser.id);
       }
 
+      const token = await signAccessToken(
+        user ? user.id.toString() : addUser.id.toString(),
+        process.env.USER_ACCESS_TOKEN_SECRET
+      );
+
       res.status(200).json({
         status: "success",
         message: "session started",
+        token: token,
+        session: req.session,
       });
     } catch (error) {
       if (error.isJoi) error.status = 422;

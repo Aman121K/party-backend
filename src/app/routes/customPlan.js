@@ -5,9 +5,20 @@ const {
   singleCusomPlan,
 } = require("../controller/customPlan");
 const { isAuth } = require("../../middlewares/auth");
+const { verifyUserAccessToken } = require("../../middlewares/jwt");
 
-router.get("/userCustomPlans", isAuth, getUserCustomPlans);
-router.get("/singleCustomPlan/:customPlanId", isAuth, singleCusomPlan);
-router.post("/create", isAuth, create);
+router.get(
+  "/userCustomPlans",
+  isAuth,
+  verifyUserAccessToken,
+  getUserCustomPlans
+);
+router.get(
+  "/singleCustomPlan/:customPlanId",
+  isAuth,
+  verifyUserAccessToken,
+  singleCusomPlan
+);
+router.post("/create", isAuth, verifyUserAccessToken, create);
 
 module.exports = router;
