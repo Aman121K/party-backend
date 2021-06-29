@@ -8,6 +8,7 @@ const cakes = require("./cakes");
 const items = require("./items");
 const activePlan = require("./activePlan");
 const customPlan = require("./customPlan");
+const categories = require("./categories");
 
 module.exports = {
   banner,
@@ -20,4 +21,5 @@ module.exports = {
   items,
   activePlan,
   customPlan,
+  categories,
 };

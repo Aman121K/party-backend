@@ -74,22 +74,47 @@ module.exports = {
         updatedData,
 
         { phone: result.phone },
-        { firstName: result.UserDetail.firstName },
-        { lastName: result.UserDetail.lastName },
-        { dob: new Date(result.UserDetail.dob).toDateString() },
-        { gender: result.UserDetail.gender },
-        { email: result.UserDetail.email },
-        { address: result.UserDetail.address },
-        { pincode: result.UserDetail.pincode },
-        { cityName: result.UserDetail.City.cityName },
-        { createdAt: result.createdAt }
+        {
+          firstName: result.UserDetail?.firstName
+            ? result.UserDetail.firstName
+            : null,
+        },
+        {
+          lastName: result.UserDetail?.lastName
+            ? result.UserDetail?.lastName
+            : null,
+        },
+        {
+          dob: result.UserDetail?.dob
+            ? new Date(result.UserDetail?.dob).toDateString()
+            : null,
+        },
+        {
+          gender: result.UserDetail?.gender ? result.UserDetail?.gender : null,
+        },
+        { email: result.UserDetail?.email ? result.UserDetail?.email : null },
+        {
+          address: result.UserDetail?.address
+            ? result.UserDetail?.address
+            : null,
+        },
+        {
+          pincode: result.UserDetail?.pincode
+            ? result.UserDetail?.pincode
+            : null,
+        },
+        {
+          cityName: result.UserDetail?.City.cityName
+            ? result.UserDetail?.City.cityName
+            : null,
+        },
+        { createdAt: result.createdAt ? result.createdAt : null }
       );
-
-      console.log(updatedData);
 
       res.status(200).json({ status: "success", data: updatedData });
     } catch (error) {
       next(error);
+      console.log(error);
     }
   },
 };

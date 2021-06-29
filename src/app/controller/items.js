@@ -10,6 +10,16 @@ module.exports = {
       console.log(error);
     }
   },
+  categoryItems: async (req, res, next) => {
+    const categoryId = req.params.categoryId;
+    try {
+      const result = await models.Item.findAll({ where: { categoryId } });
+      res.status(200).json({ status: "success", result });
+    } catch (error) {
+      next(error);
+      console.log(error);
+    }
+  },
   create: async (req, res, next) => {
     const body = req.body;
     try {

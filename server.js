@@ -24,6 +24,7 @@ const {
   items,
   activePlan,
   customPlan,
+  categories,
 } = require("./src/app/routes");
 
 var sessionStore = new MySQLStore(MYSQL_OPTIONS);
@@ -57,6 +58,7 @@ app.use(`/api/v1/cake`, cakes);
 app.use(`/api/v1/item`, items);
 app.use(`/api/v1/activePlan`, activePlan);
 app.use(`/api/v1/customPlan`, customPlan);
+app.use(`/api/v1/category`, categories);
 
 // error handling
 app.use(notFound);
