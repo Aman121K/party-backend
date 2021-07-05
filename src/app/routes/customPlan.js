@@ -9,16 +9,16 @@ const { verifyUserAccessToken } = require("../../middlewares/jwt");
 
 router.get(
   "/userCustomPlans",
-  isAuth,
+
   verifyUserAccessToken,
   getUserCustomPlans
 );
 router.get(
   "/singleCustomPlan/:customPlanId",
-  isAuth,
+
   verifyUserAccessToken,
   singleCusomPlan
 );
-router.post("/create", isAuth, verifyUserAccessToken, create);
+router.post("/create", verifyUserAccessToken, create);
 
 module.exports = router;

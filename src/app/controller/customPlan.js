@@ -4,7 +4,7 @@ const { sequelize } = require("../../models");
 
 module.exports = {
   create: async (req, res, next) => {
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
     const body = req.body;
 
     let createCustomPlan, createCustomPlanItems;
@@ -45,7 +45,7 @@ module.exports = {
     }
   },
   getUserCustomPlans: async (req, res, next) => {
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
     try {
       const result = await models.CustomPlan.findAll({
         where: { userId },
@@ -75,7 +75,7 @@ module.exports = {
     }
   },
   singleCusomPlan: async (req, res, next) => {
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
     const customPlanId = req.params.customPlanId;
     try {
       const result = await models.CustomPlan.findOne({

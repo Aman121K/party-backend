@@ -3,10 +3,10 @@ const models = require("../../models");
 module.exports = {
   create: async (req, res, next) => {
     const data = req.body;
-
+    const { aud } = req.payload;
     try {
       const result = await models.UserDetail.create({
-        userId: req.session.userId,
+        userId: aud,
         ...data,
       });
       res.status(201).json(result);
@@ -27,10 +27,12 @@ module.exports = {
       address,
       pincode,
     } = req.body;
+    const { aud } = req.payload;
+
     try {
-      const result = await models.UserDetail.update(
+      await models.UserDetail.update(
         { firstName, lastName, dob, gender, email, cityId, address, pincode },
-        { where: { userId: req.session.userId } }
+        { where: { userId: aud } }
       );
 
       res.status(200).json({ status: "success", message: "Profile Updated" });
@@ -41,6 +43,8 @@ module.exports = {
   },
 
   view: async (req, res, next) => {
+    const { aud } = req.payload;
+
     try {
       const result = await models.User.findOne({
         include: [
@@ -65,7 +69,7 @@ module.exports = {
           },
         ],
         attributes: { exclude: ["updatedAt"] },
-        where: { id: req.session.userId },
+        where: { id: aud },
       });
 
       let updatedData = {};
@@ -75,38 +79,28 @@ module.exports = {
 
         { phone: result.phone },
         {
-          firstName: result.UserDetail?.firstName
-            ? result.UserDetail.firstName
+          firstName: result.UserDetail ? result.UserDetail.firstName : null,
+        },
+        {
+          lastName: result.UserDetail ? result.UserDetail.lastName : null,
+        },
+        {
+          dob: result.UserDetail
+            ? new Date(result.UserDetail.dob).toDateString()
             : null,
         },
         {
-          lastName: result.UserDetail?.lastName
-            ? result.UserDetail?.lastName
-            : null,
+          gender: result.UserDetail ? result.UserDetail.gender : null,
+        },
+        { email: result.UserDetail ? result.UserDetail.email : null },
+        {
+          address: result.UserDetail ? result.UserDetail.address : null,
         },
         {
-          dob: result.UserDetail?.dob
-            ? new Date(result.UserDetail?.dob).toDateString()
-            : null,
+          pincode: result.UserDetail ? result.UserDetail.pincode : null,
         },
         {
-          gender: result.UserDetail?.gender ? result.UserDetail?.gender : null,
-        },
-        { email: result.UserDetail?.email ? result.UserDetail?.email : null },
-        {
-          address: result.UserDetail?.address
-            ? result.UserDetail?.address
-            : null,
-        },
-        {
-          pincode: result.UserDetail?.pincode
-            ? result.UserDetail?.pincode
-            : null,
-        },
-        {
-          cityName: result.UserDetail?.City.cityName
-            ? result.UserDetail?.City.cityName
-            : null,
+          cityName: result.UserDetail ? result.UserDetail.City.cityName : null,
         },
         { createdAt: result.createdAt ? result.createdAt : null }
       );

@@ -3,8 +3,8 @@ const { view, create, update } = require("../controller/profile");
 const { isAuth } = require("../../middlewares/auth");
 const { verifyUserAccessToken } = require("../../middlewares/jwt");
 
-router.get("/", isAuth, verifyUserAccessToken, view);
-router.post("/create", isAuth, verifyUserAccessToken, create);
-router.patch("/update", isAuth, verifyUserAccessToken, update);
+router.get("/", verifyUserAccessToken, view);
+router.post("/create", verifyUserAccessToken, create);
+router.patch("/update", verifyUserAccessToken, update);
 
 module.exports = router;

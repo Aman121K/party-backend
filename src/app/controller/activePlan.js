@@ -6,7 +6,7 @@ const { activePlanSchema } = require("../validation");
 module.exports = {
   create: async (req, res, next) => {
     const body = req.body;
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
     try {
       const validatedBody = await activePlanSchema.validateAsync(body);
       console.log(validatedBody);
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   allActivePlans: async (req, res, next) => {
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
     try {
       const result = await models.ActivePlan.findAll({
         where: { userId },
@@ -78,7 +78,7 @@ module.exports = {
     }
   },
   getSingleActivePlan: async (req, res, next) => {
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
     const activePlanId = req.params.activePlanId;
     try {
       const result = await models.ActivePlan.findOne({

@@ -26,9 +26,7 @@ module.exports = {
 
       res.status(200).json({
         status: "success",
-        message: "session started",
         token: token,
-        session: req.session,
       });
     } catch (error) {
       if (error.isJoi) error.status = 422;

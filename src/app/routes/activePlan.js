@@ -7,13 +7,13 @@ const {
 const { isAuth } = require("../../middlewares/auth");
 const { verifyUserAccessToken } = require("../../middlewares/jwt");
 
-router.get("/all", isAuth, verifyUserAccessToken, allActivePlans);
+router.get("/all", verifyUserAccessToken, allActivePlans);
 router.get(
   "/single/:activePlanId",
-  isAuth,
+
   verifyUserAccessToken,
   getSingleActivePlan
 );
-router.post("/create", isAuth, verifyUserAccessToken, create);
+router.post("/create", verifyUserAccessToken, create);
 
 module.exports = router;

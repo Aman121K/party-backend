@@ -4,7 +4,7 @@ const models = require("../../models");
 
 module.exports = {
   userEvents: async (req, res, next) => {
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
 
     try {
       const result = await models.Event.findAll({
@@ -41,7 +41,7 @@ module.exports = {
 
     try {
       const result = await models.Event.create(
-        { ...body, userId: req.session.userId },
+        { ...body, userId: req.payload.aud },
         {
           include: [{ model: models.EventDetail, as: "details" }],
         }
@@ -57,7 +57,7 @@ module.exports = {
   updateEvent: async (req, res, next) => {
     const body = req.body;
     const eventId = req.params.eventId;
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
 
     try {
       const result = await sequelize.transaction(async (t) => {
@@ -93,11 +93,10 @@ module.exports = {
       console.log(error);
     }
   },
- 
- 
+
   deleteEvent: async (req, res, next) => {
     const eventId = req.params.eventId;
-    const userId = req.session.userId;
+    const userId = req.payload.aud;
     const t = await sequelize.transaction();
 
     try {
