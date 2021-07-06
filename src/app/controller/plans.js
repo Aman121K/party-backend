@@ -70,7 +70,7 @@ module.exports = {
               {
                 model: models.Item,
                 as: "item",
-                attributes: ["itemName", "itemImageUrl"],
+                attributes: ["itemName", "itemImageUrl", "itemDescription"],
               },
             ],
           },

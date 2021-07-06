@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: true,
         references: { model: "Categories", key: "id" },
       },
-      itemImageUrl: { type: DataTypes.STRING, allowNull: false },
+      itemImageUrl: { type: DataTypes.STRING, allowNull: true },
+      itemDescription: { type: DataTypes.STRING, allowNull: true },
     },
     {
       sequelize,
