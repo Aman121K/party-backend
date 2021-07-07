@@ -9,13 +9,13 @@ module.exports = {
     try {
       const result = await models.Event.findAll({
         where: { userId },
-        attributes: { exclude: ["id", "userId", "cityId"] },
+        attributes: { exclude: ["userId", "cityId"] },
         include: [
           {
             model: models.EventDetail,
             required: true,
             as: "details",
-            attributes: { exclude: ["id", "eventId"] },
+            attributes: { exclude: ["eventId"] },
           },
           {
             model: models.City,
