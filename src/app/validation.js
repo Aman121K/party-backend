@@ -24,4 +24,21 @@ const cakeSchema = Joi.object({
   cakePrice: Joi.number().required(),
 });
 
-module.exports = { loginSchema, activePlanSchema, cakeSchema };
+const eventSchema = Joi.object({
+  eventName: Joi.string().required(),
+  eventType: Joi.string().lowercase().required(),
+  eventDate: Joi.required(),
+  phoneNumber: Joi.string()
+    .regex(/^[0-9]{10}$/)
+    .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
+    .required(),
+  cityId: Joi.number().required(),
+  address: Joi.string().required(),
+  pincode: Joi.number().required(),
+  gender: Joi.string(),
+  memberName: Joi.string(),
+  memberOneName: Joi.string(),
+  memberTwoName: Joi.string(),
+});
+
+module.exports = { loginSchema, activePlanSchema, cakeSchema, eventSchema };

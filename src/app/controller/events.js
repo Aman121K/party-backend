@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { sequelize } = require("../../models");
 const models = require("../../models");
+const { eventSchema } = require("../validation");
 
 module.exports = {
   userEvents: async (req, res, next) => {
@@ -37,19 +38,68 @@ module.exports = {
   },
 
   createEvent: async (req, res, next) => {
-    const body = req.body;
+    const {
+      eventName,
+      eventType,
+      eventDate,
+      phoneNumber,
+      address,
+      pincode,
+      cityId,
+      memberName,
+      gender,
+      memberOneName,
+      memberTwoName,
+    } = req.body;
 
+    let createEvent, createEventDetails;
     try {
-      const result = await models.Event.create(
-        { ...body, userId: req.payload.aud },
-        {
-          include: [{ model: models.EventDetail, as: "details" }],
-        }
-      );
+      await eventSchema.validateAsync({
+        eventName,
+        eventType,
+        eventDate,
+        phoneNumber,
+        address,
+        pincode,
+        cityId,
+        memberName,
+        gender,
+        memberOneName,
+        memberTwoName,
+      });
 
-      res.status(201).json({ status: "success", result });
+      await sequelize.transaction(async (t) => {
+        createEvent = await models.Event.create(
+          {
+            eventName,
+            eventType,
+            eventDate,
+            phoneNumber,
+            cityId,
+            address,
+            pincode,
+            userId: req.payload.aud,
+          },
+          { transaction: t }
+        );
+
+        createEventDetails = await models.EventDetail.create(
+          {
+            eventId: createEvent.id,
+            gender,
+            memberName,
+            memberOneName,
+            memberTwoName,
+          },
+          { transaction: t }
+        );
+      });
+
+      res
+        .status(201)
+        .json({ status: "success", createEvent, createEventDetails });
     } catch (error) {
-      console.log(error);
+      if (error.isJoi) error.status = 422;
       next(error);
     }
   },
