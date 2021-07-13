@@ -9,11 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Cake.hasMany(models.CakeVariant, {
+        as: "variants",
+      });
     }
   }
   Cake.init(
     {
       name: { type: DataTypes.STRING, allowNull: false },
+      description: { type: DataTypes.STRING, allowNull: true },
       cakeImageUrl: { type: DataTypes.STRING, allowNull: false },
       cakeWeight: { type: DataTypes.STRING, allowNull: false },
       cakePrice: { type: DataTypes.INTEGER, allowNull: false },

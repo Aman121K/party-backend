@@ -4,6 +4,7 @@
     "password": "cncpassword@123",
     "database": "qxbovsxt_cnc",
     "host": "103.108.220.133",
+    "port":3306,
     "dialect": "mysql"
   },
   "test": {

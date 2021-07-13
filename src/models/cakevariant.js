@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   CakeVariant.init(
     {
       cakeId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
         references: {

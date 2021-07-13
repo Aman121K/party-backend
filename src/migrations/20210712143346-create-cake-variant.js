@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       cakeId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
         references: {

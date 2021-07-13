@@ -6,7 +6,16 @@ const { cakeSchema } = require("../validation");
 module.exports = {
   allCakes: async (req, res, next) => {
     try {
-      const result = await models.Cake.findAll();
+      const result = await models.Cake.findAll({
+        attributes: { exclude: ["cakeWeight", "cakePrice"] },
+        include: [
+          {
+            model: models.CakeVariant,
+            as: "variants",
+            attributes: ["weight", "price"],
+          },
+        ],
+      });
       res
         .status(200)
         .json({ message: "success", results: result.length, cakes: result });
