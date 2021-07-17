@@ -7,7 +7,14 @@ module.exports = {
   allCakes: async (req, res, next) => {
     try {
       const result = await models.Cake.findAll({
-        attributes: { exclude: ["cakeWeight", "cakePrice"] },
+        attributes: [
+          "id",
+          ["name", "itemName"],
+          "description",
+          ["cakeImageUrl", "itemImageUrl"],
+          "createdAt",
+          "updatedAt",
+        ],
         include: [
           {
             model: models.CakeVariant,

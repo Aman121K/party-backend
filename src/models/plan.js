@@ -10,16 +10,34 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Plan.hasMany(models.PlanItem, { foreignKey: "planId", as: "items" });
+      Plan.belongsTo(models.Cake, { foreignKey:"cakeId",  as: "cakeDetails" });
     }
   }
   Plan.init(
     {
-      name: { type: DataTypes.STRING, allowNull: false },
-      members: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
-      validity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
-      price: { type: DataTypes.DECIMAL, allowNull: false },
-      cakeWeight: { type: DataTypes.STRING, allowNull: true },
-      cakeName: { type: DataTypes.STRING, allowNull: true },
+      name: {
+        type: DataTypes.STRING,
+      },
+      members: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+      },
+      validity: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+      },
+      price: {
+        type: DataTypes.DECIMAL,
+      },
+      cakeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: "Cakes",
+          key: "id",
+        },
+      },
     },
     {
       sequelize,

@@ -22,11 +22,14 @@ module.exports = {
       price: {
         type: Sequelize.DECIMAL,
       },
-      cakeWeight: {
-        type: Sequelize.STRING,
-      },
-      cakePlan: {
-        type: Sequelize.STRING,
+      cakeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: "Cakes",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,

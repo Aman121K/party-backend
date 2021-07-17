@@ -63,6 +63,18 @@ module.exports = {
       const result = await models.Plan.findAll({
         include: [
           {
+            model: models.Cake,
+            as: "cakeDetails",
+            attributes: [
+              "id",
+              ["name", "itemName"],
+              "description",
+              ["cakeImageUrl", "itemImageUrl"],
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+          {
             model: models.PlanItem,
             as: "items",
             attributes: ["id"],
