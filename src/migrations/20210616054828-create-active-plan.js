@@ -8,23 +8,41 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      activePlanType: {
+        type: Sequelize.ENUM,
+        values: ["standardPlan", "customPlan"],
+        defaultValue: "standardPlan",
+        allowNull: false,
+      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
         references: { model: "Users", key: "id" },
       },
-      cakeId: {
+      membersIncluded: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        foreignKey: true,
-        references: { model: "Cakes", key: "id" },
       },
-      itemId: {
+      packagePrice: {
+        type: Sequelize.DECIMAL,
+        allowNull: false,
+      },
+      packageDuration: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        foreignKey: true,
-        references: { model: "Items", key: "id" },
+      },
+      cakeName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cakeWeight: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cakeImageUrl: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       discountPercent: {
         type: Sequelize.INTEGER,

@@ -27,17 +27,35 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: true,
         references: { model: "Users", key: "id" },
       },
-      cakeId: {
-        type: DataTypes.INTEGER,
+      activePlanType: {
+        type: DataTypes.ENUM,
+        values: ["standardPlan", "customPlan"],
+        defaultValue: "standardPlan",
         allowNull: false,
-        foreignKey: true,
-        references: { model: "Cakes", key: "id" },
       },
-      itemId: {
+      membersIncluded: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        foreignKey: true,
-        references: { model: "Items", key: "id" },
+      },
+      packagePrice: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+      },
+      packageDuration: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      cakeName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      cakeWeight: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      cakeImageUrl: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       discountPercent: {
         type: DataTypes.INTEGER,

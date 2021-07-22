@@ -10,7 +10,7 @@ module.exports = {
         attributes: [
           "id",
           ["name", "itemName"],
-          "description",
+          "itemDescription",
           ["cakeImageUrl", "itemImageUrl"],
           "createdAt",
           "updatedAt",

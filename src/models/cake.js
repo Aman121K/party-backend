@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Cake.init(
     {
       name: { type: DataTypes.STRING, allowNull: false },
-      description: { type: DataTypes.STRING, allowNull: true },
+      itemDescription: { type: DataTypes.STRING, allowNull: true },
       cakeImageUrl: { type: DataTypes.STRING, allowNull: false },
       cakeWeight: { type: DataTypes.STRING, allowNull: false },
       cakePrice: { type: DataTypes.INTEGER, allowNull: false },

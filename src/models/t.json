@@ -1,0 +1,61 @@
+{
+  "duration": 2,
+  "customizedEventList": [
+    {
+      "eventId": 29,
+      "selectedCake": {
+        "createdAt": "2021-06-14T14:14:23.000Z",
+        "description": "sample cake description 2",
+        "id": 2,
+        "itemImageUrl": "https://res.cloudinary.com/df1njw2ap/image/upload/v1623680062/lvnvhrk24xukuiaxnteb.png",
+        "itemName": "black forest",
+        "updatedAt": "2021-06-14T14:14:23.000Z",
+        "variants": [
+          { "price": 500.0, "weight": "1 kg" },
+          { "price": 900.0, "weight": "2kg" }
+        ]
+      },
+      "selectedItems": [
+        {
+          "categoryId": 2,
+          "createdAt": "2021-06-29T10:54:35.000Z",
+          "id": 1,
+          "itemImageUrl": "image url",
+          "itemName": "greet me better",
+          "updatedAt": "2021-06-29T10:54:35.000Z"
+        }
+      ],
+      "selectedweight": "1 kg"
+    },
+    {
+      "eventId": 31,
+      "selectedCake": {
+        "createdAt": "2021-06-14T14:12:02.000Z",
+        "description": "this is sample cake description",
+        "id": 1,
+        "itemImageUrl": "https://res.cloudinary.com/df1njw2ap/image/upload/v1623679920/rjoejwz1u99ezt0yzyfu.png",
+        "itemName": "choko lava moko",
+        "updatedAt": "2021-06-14T14:38:35.000Z",
+        "variants": [{ "price": 800.0, "weight": "1 kg" }]
+      },
+      "selectedItems": [
+        {
+          "categoryId": 2,
+          "createdAt": "2021-06-29T10:54:35.000Z",
+          "id": 1,
+          "itemImageUrl": "image url",
+          "itemName": "greet me better",
+          "updatedAt": "2021-06-29T10:54:35.000Z"
+        },
+        {
+          "categoryId": 2,
+          "createdAt": "2021-07-05T04:30:54.000Z",
+          "id": 2,
+          "itemName": "iwtem",
+          "updatedAt": "2021-07-05T04:30:54.000Z"
+        }
+      ],
+      "selectedweight": "1 kg"
+    }
+  ]
+}
