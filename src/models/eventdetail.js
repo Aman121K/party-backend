@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+
       // define association here
+
+    
     }
   }
   EventDetail.init(
@@ -23,10 +26,19 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "Male",
       },
       memberOneName: {
+
         type: DataTypes.STRING,
       },
       memberTwoName: {
         type: DataTypes.STRING,
+      },
+      cakeName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      cakeImageUrl: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {

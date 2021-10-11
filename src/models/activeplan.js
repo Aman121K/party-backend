@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ActivePlan.belongsTo(models.Cake, { foreignKey: "cakeId", as: "cake" });
-      ActivePlan.belongsTo(models.Item, {
-        foreignKey: "itemId",
-        as: "item",
-      });
-      ActivePlan.belongsToMany(models.Event, {
-        through: "ActivePlanEvents",
-      });
+      // ActivePlan.belongsTo(models.Cake, { foreignKey: "cakeId", as: "cake" });
+      // ActivePlan.belongsTo(models.Item, {
+      //   foreignKey: "itemId",
+      //   as: "item",
+      // });
+      // ActivePlan.belongsToMany(models.Event, {
+      //   through: "ActivePlanEvents",
+      // });
     }
   }
   ActivePlan.init(
@@ -27,50 +27,25 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: true,
         references: { model: "Users", key: "id" },
       },
-      activePlanType: {
-        type: DataTypes.ENUM,
-        values: ["standardPlan", "customPlan"],
-        defaultValue: "standardPlan",
-        allowNull: false,
-      },
-      membersIncluded: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      packagePrice: {
-        type: DataTypes.DECIMAL,
-        allowNull: false,
-      },
-      packageDuration: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      cakeName: {
+      planType: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cakeWeight: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      cakeImageUrl: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      discountPercent: {
+      noOfEvents: {
         type: DataTypes.INTEGER,
-      },
-      discountPrice: {
-        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(10, 0),
+        allowNull: false,
       },
-      deliveryCharges: {
+      tenure: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
-      payableAmount: {
-        type: DataTypes.INTEGER,
+      transactionId: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {

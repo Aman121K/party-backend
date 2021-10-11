@@ -5,25 +5,35 @@ module.exports = {
   create: async (req, res, next) => {
     const body = req.body;
 
-    let createPlan, createPlanItems;
+    let createPlan, createPlanUtilities, createPlanCakes;
     try {
       await sequelize.transaction(async (t) => {
         createPlan = await models.Plan.create(body, { transaction: t });
 
-        let itemsArry = [];
-        body.items.map((el) => {
-          itemsArry.push({ planId: createPlan.id, itemId: el });
+        let utilities = [];
+        body.utilities.map((utility) => {
+          utilities.push({ planId: createPlan.id, utilityId: utility });
         });
 
-        createPlanItems = await models.PlanItem.bulkCreate(itemsArry, {
+        let cakes = [];
+        body.cakes.map((cake) => {
+          cakes.push({ planId: createPlan.id, cakeId: cake });
+        });
+
+        createPlanUtilities = await models.PlanUtility.bulkCreate(utilities, {
           transaction: t,
         });
+
+        createPlanCakes = await models.PlanCake.bulkCreate(cakes, {
+          transaction: t,
+        });
+
       });
 
       res.status(201).json({
         status: "success",
         message: "plan created",
-        data: { createPlan, createPlanItems },
+        data: { createPlan, createPlanUtilities, createPlanCakes },
       });
     } catch (error) {
       next(error);
@@ -31,6 +41,7 @@ module.exports = {
     }
   },
 
+  // to be worked on
   remove: async (req, res, next) => {
     const planId = req.params.planId;
     try {
@@ -44,6 +55,7 @@ module.exports = {
     }
   },
 
+  // to be worked on
   update: async (req, res, next) => {
     const data = req.body;
     const planId = req.params.planId;
@@ -63,30 +75,17 @@ module.exports = {
       const result = await models.Plan.findAll({
         include: [
           {
-            model: models.Cake,
-            as: "cakeDetails",
-            attributes: [
-              "id",
-              ["name", "itemName"],
-              "description",
-              ["cakeImageUrl", "itemImageUrl"],
-              "createdAt",
-              "updatedAt",
-            ],
+            model: models.Utility,
+            as: "utilities",
+            attributes: ["id", "utilityName"],
+            through: { attributes: [] },
           },
           {
-            model: models.PlanItem,
-            as: "items",
-            attributes: ["id"],
-            include: [
-              {
-                model: models.Item,
-                as: "item",
-                attributes: ["itemName", "itemImageUrl", "itemDescription"],
-              },
-            ],
-          },
-        ],
+            model: models.Cake,
+            as: "cakes",
+            through: { attributes: [] },
+          }
+        ]
       });
       res.status(200).json({
         status: "success",

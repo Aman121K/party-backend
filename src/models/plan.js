@@ -9,34 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Plan.hasMany(models.PlanItem, { foreignKey: "planId", as: "items" });
-      Plan.belongsTo(models.Cake, { foreignKey:"cakeId",  as: "cakeDetails" });
+      Plan.belongsToMany(models.Utility, {
+        through: "PlanUtility", as: "utilities"
+      });
+      Plan.belongsToMany(models.Cake, {
+        through: "PlanCake", as: "cakes"
+      });
     }
   }
   Plan.init(
     {
-      name: {
+      planName: {
         type: DataTypes.STRING,
+        allowNull: false
       },
-      members: {
+      basePrice: {
         type: DataTypes.INTEGER,
-        defaultValue: 1,
+        allowNull: false
       },
-      validity: {
+      baseYears: {
         type: DataTypes.INTEGER,
-        defaultValue: 1,
+        allowNull: false
       },
-      price: {
-        type: DataTypes.DECIMAL,
-      },
-      cakeId: {
+      baseEvents: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-        references: {
-          model: "Cakes",
-          key: "id",
-        },
+        allowNull: false
       },
     },
     {

@@ -33,6 +33,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      cakeName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cakeImageUrl: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

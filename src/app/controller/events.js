@@ -17,6 +17,17 @@ module.exports = {
             required: true,
             as: "details",
             attributes: { exclude: ["eventId"] },
+
+          },
+          {
+            model: models.EventUtilities,
+            as: "utilities"
+          },
+          {
+            model: models.EventTime,
+            required: true,
+            as: "eventTime",
+            attributes: ["time"],
           },
           {
             model: models.City,
@@ -43,16 +54,20 @@ module.exports = {
       eventType,
       eventDate,
       phoneNumber,
+      eventTimeId,
       address,
       pincode,
       cityId,
       memberName,
       gender,
+      cakeImageUrl,
+      cakeName,
       memberOneName,
       memberTwoName,
+      eventUtilities
     } = req.body;
 
-    let createEvent, createEventDetails;
+    let createEvent, createEventDetails, eventUtilitiesData;
     try {
       await eventSchema.validateAsync({
         eventName,
@@ -60,9 +75,13 @@ module.exports = {
         eventDate,
         phoneNumber,
         address,
+        eventTimeId,
         pincode,
+        cakeImageUrl,
+        cakeName,
         cityId,
         memberName,
+        eventUtilities,
         gender,
         memberOneName,
         memberTwoName,
@@ -74,10 +93,12 @@ module.exports = {
             eventName,
             eventType,
             eventDate,
+            eventTimeId,
             phoneNumber,
             cityId,
             address,
             pincode,
+
             userId: req.payload.aud,
           },
           { transaction: t }
@@ -90,14 +111,26 @@ module.exports = {
             memberName,
             memberOneName,
             memberTwoName,
+            cakeImageUrl,
+            cakeName,
           },
           { transaction: t }
         );
+
+        let utilities = [];
+        eventUtilities.map((utility) => {
+          utilities.push({ eventId: createEvent.id, utilityName: utility });
+        });
+
+        eventUtilitiesData = await models.EventUtilities.bulkCreate(utilities, {
+          transaction: t,
+        });
+
       });
 
       res
         .status(201)
-        .json({ status: "success", createEvent, createEventDetails });
+        .json({ status: "success", createEvent, createEventDetails, eventUtilitiesData });
     } catch (error) {
       if (error.isJoi) error.status = 422;
       next(error);

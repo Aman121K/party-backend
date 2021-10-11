@@ -38,6 +38,12 @@ module.exports = {
         foreignKey: true,
         references: { model: "Cities", key: "id" },
       },
+      eventTimeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: { model: "EventTimes", key: "id" },
+      },
       address: {
         type: Sequelize.TEXT,
         allowNull: false,

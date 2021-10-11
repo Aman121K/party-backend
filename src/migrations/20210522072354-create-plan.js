@@ -8,28 +8,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      planName: {
         type: Sequelize.STRING,
+        allowNull:false
       },
-      members: {
+      basePrice: {
         type: Sequelize.INTEGER,
-        defaultValue: 1,
+        allowNull:false
       },
-      validity: {
+      baseYears: {
         type: Sequelize.INTEGER,
-        defaultValue: 1,
+        allowNull:false
       },
-      price: {
-        type: Sequelize.DECIMAL,
-      },
-      cakeId: {
+      baseEvents: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-        references: {
-          model: "Cakes",
-          key: "id",
-        },
+        allowNull:false
       },
       createdAt: {
         allowNull: false,

@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "eventId",
         as: "details",
       });
+      Event.hasMany(models.EventUtilities, {
+        as: "utilities",
+      });
       Event.belongsTo(models.City, { foreignKey: "cityId", as: "city" });
+      Event.belongsTo(models.EventTime, { foreignKey: "eventTimeId", as: "eventTime" });
     }
   }
   Event.init(
@@ -40,7 +44,16 @@ module.exports = (sequelize, DataTypes) => {
       cityId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        foreignKey: true,
+        references: { model: "Cities", key: "id" },
       },
+      eventTimeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: { model: "EventTimes", key: "id" },
+      },
+
       address: {
         type: DataTypes.TEXT,
         allowNull: false,

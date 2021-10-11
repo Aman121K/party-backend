@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "qxbovsxt_cnc",
-    "password": "cncpassword@123",
-    "database": "qxbovsxt_cnc",
+    "username": "okfauupv_partyfyd",
+    "password": "partyfyd@123",
+    "database": "okfauupv_partyfyd",
     "host": "103.108.220.133",
     "port":3306,
     "dialect": "mysql"
   },
   "test": {
-    "username": "qxbovsxt_cnc",
-    "password": "cncpassword@123",
-    "database": "qxbovsxt_cnc",
+    "username": "okfauupv_partyfyd",
+    "password": "partyfyd@123",
+    "database": "okfauupv_partyfyd",
     "host": "103.108.220.133",
     "dialect": "mysql"
   },
   "production": {
-    "username": "qxbovsxt_cnc",
-    "password": "cncpassword@123",
-    "database": "qxbovsxt_cnc",
+    "username": "okfauupv_partyfyd",
+    "password": "partyfyd@123",
+    "database": "okfauupv_partyfyd",
     "host": "103.108.220.133",
     "dialect": "mysql"
   }

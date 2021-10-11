@@ -7,16 +7,16 @@ const loginSchema = Joi.object({
     .required(),
 });
 
-const activePlanSchema = Joi.object({
-  cakeId: Joi.number().required(),
-  itemId: Joi.number().required(),
-  discountPercent: Joi.number().required(),
-  discountPrice: Joi.number().required(),
-  price: Joi.number().required(),
-  deliveryCharges: Joi.number().required(),
-  payableAmount: Joi.number().required(),
-  events: Joi.array(),
-});
+// const activePlanSchema = Joi.object({
+//   planType: Joi.string().required(),
+//   name: Joi.().required(),
+//   discountPercent: Joi.number().required(),
+//   discountPrice: Joi.number().required(),
+//   price: Joi.number().required(),
+//   deliveryCharges: Joi.number().required(),
+//   payableAmount: Joi.number().required(),
+//   events: Joi.array(),
+// });
 
 const cakeSchema = Joi.object({
   name: Joi.string().required(),
@@ -33,12 +33,17 @@ const eventSchema = Joi.object({
     .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
     .required(),
   cityId: Joi.number().required(),
+  eventTimeId: Joi.number().required(),
   address: Joi.string().required(),
   pincode: Joi.number().required(),
   gender: Joi.string(),
+  cakeImageUrl: Joi.string().required(),
+  cakeName: Joi.string().required(),
+  eventUtilities: Joi.array(),
   memberName: Joi.string(),
   memberOneName: Joi.string(),
   memberTwoName: Joi.string(),
 });
 
-module.exports = { loginSchema, activePlanSchema, cakeSchema, eventSchema };
+module.exports = { loginSchema, cakeSchema, eventSchema };
+
