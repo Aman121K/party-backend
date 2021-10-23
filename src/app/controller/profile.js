@@ -20,18 +20,14 @@ module.exports = {
     const {
       firstName,
       lastName,
-      dob,
       gender,
       email,
-      cityId,
-      address,
-      pincode,
     } = req.body;
     const { aud } = req.payload;
 
     try {
       await models.UserDetail.update(
-        { firstName, lastName, dob, gender, email, cityId, address, pincode },
+        { firstName, lastName, gender, email },
         { where: { userId: aud } }
       );
 
@@ -50,62 +46,46 @@ module.exports = {
         include: [
           {
             model: models.UserDetail,
-            attributes: {
-              exclude: [
-                "id",
-                "userId",
-                "cityId",
-                "CityId",
-                "createdAt",
-                "updatedAt",
-              ],
-            },
-            include: [
-              {
-                model: models.City,
-                attributes: ["cityName"],
-              },
-            ],
           },
         ],
         attributes: { exclude: ["updatedAt"] },
         where: { id: aud },
       });
 
-      let updatedData = {};
+      // let updatedData = {};
 
-      Object.assign(
-        updatedData,
+      // Object.assign(
+      //   updatedData,
 
-        { phone: result.phone },
-        {
-          firstName: result.UserDetail ? result.UserDetail.firstName : null,
-        },
-        {
-          lastName: result.UserDetail ? result.UserDetail.lastName : null,
-        },
-        {
-          dob: result.UserDetail
-            ? new Date(result.UserDetail.dob).toDateString()
-            : null,
-        },
-        {
-          gender: result.UserDetail ? result.UserDetail.gender : null,
-        },
-        { email: result.UserDetail ? result.UserDetail.email : null },
-        {
-          address: result.UserDetail ? result.UserDetail.address : null,
-        },
-        {
-          pincode: result.UserDetail ? result.UserDetail.pincode : null,
-        },
-        {
-          cityName: result.UserDetail ? result.UserDetail.City.cityName : null,
-        },
-        { createdAt: result.createdAt ? result.createdAt : null }
-      );
+      //   { phone: result.phone },
+      //   {
+      //     firstName: result.UserDetail ? result.UserDetail.firstName : null,
+      //   },
+      //   {
+      //     lastName: result.UserDetail ? result.UserDetail.lastName : null,
+      //   },
+      //   {
+      //     dob: result.UserDetail
+      //       ? new Date(result.UserDetail.dob).toDateString()
+      //       : null,
+      //   },
+      //   {
+      //     gender: result.UserDetail ? result.UserDetail.gender : null,
+      //   },
+      //   { email: result.UserDetail ? result.UserDetail.email : null },
+      //   {
+      //     address: result.UserDetail ? result.UserDetail.address : null,
+      //   },
+      //   {
+      //     pincode: result.UserDetail ? result.UserDetail.pincode : null,
+      //   },
+      //   {
+      //     cityName: result.UserDetail ? result.UserDetail.City.cityName : null,
+      //   },
+      //   { createdAt: result.createdAt ? result.createdAt : null }
+      // );
 
-      res.status(200).json({ status: "success", data: updatedData });
+      res.status(200).json({ status: "success", data: result });
     } catch (error) {
       next(error);
       console.log(error);

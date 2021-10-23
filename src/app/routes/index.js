@@ -9,6 +9,7 @@ const items = require("./items");
 const activePlan = require("./activePlan");
 const customPlan = require("./customPlan");
 const categories = require("./categories");
+const feedback = require("./feedback");
 
 module.exports = {
   banner,
@@ -22,4 +23,5 @@ module.exports = {
   activePlan,
   customPlan,
   categories,
+  feedback
 };

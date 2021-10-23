@@ -15,6 +15,10 @@ module.exports = {
         references: { model: "Events", key: "id" },
         onDelete: "CASCADE",
       },
+      cakeMessage: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
       memberName: {
         type: Sequelize.STRING,
         allowNull: true,

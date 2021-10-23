@@ -3,7 +3,7 @@ const models = require("../../models");
 module.exports = {
   allItems: async (req, res, next) => {
     try {
-      const result = await models.Item.findAll();
+      const result = await models.Utility.findAll();
       res.status(200).json({ status: "success", result });
     } catch (error) {
       next(error);

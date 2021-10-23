@@ -6,16 +6,22 @@ const { token } = require("morgan");
 
 module.exports = {
   login: async (req, res, next) => {
+    let addUser
     try {
       await loginSchema.validateAsync(req.body);
       const user = await models.User.findOne({
         where: { phone: req.body.phone },
+        include: [
+          {
+            model: models.ActivePlan,
+          }
+        ]
       });
 
       if (user) {
         logIn(req, user.id);
       } else {
-        const addUser = await models.User.create({ phone: req.body.phone });
+        addUser = await models.User.create({ phone: req.body.phone });
         logIn(req, addUser.id);
       }
 
@@ -27,6 +33,7 @@ module.exports = {
       res.status(200).json({
         status: "success",
         token: token,
+        isPlanPurchased: user?.ActivePlan === null ? false : true
       });
     } catch (error) {
       if (error.isJoi) error.status = 422;

@@ -6,28 +6,24 @@ const { cakeSchema } = require("../validation");
 module.exports = {
   allCakes: async (req, res, next) => {
     try {
-      const result = await models.Cake.findAll({
-        attributes: [
-          "id",
-          ["name", "itemName"],
-          "itemDescription",
-          ["cakeImageUrl", "itemImageUrl"],
-          "createdAt",
-          "updatedAt",
-        ],
-        include: [
-          {
-            model: models.CakeVariant,
-            as: "variants",
-            attributes: ["weight", "price"],
-          },
-        ],
-      });
+      const result = await models.Cake.findAll({});
       res
         .status(200)
         .json({ message: "success", results: result.length, cakes: result });
     } catch (error) {
       next(error);
+    }
+  },
+
+  planCakes: async (req, res, next) => {
+
+    try {
+      const result = await models.Cake.findAll({ where: { planId: req.query.planId } })
+      res.status(200).json({
+        message: "success", results: result.length, cakes: result
+      })
+    } catch (error) {
+      next(error)
     }
   },
 

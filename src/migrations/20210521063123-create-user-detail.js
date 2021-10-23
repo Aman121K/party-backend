@@ -20,12 +20,7 @@ module.exports = {
       },
       lastName: {
         allowNull: false,
-
         type: Sequelize.STRING(40),
-      },
-      dob: {
-        allowNull: false,
-        type: Sequelize.DATE,
       },
       gender: {
         allowNull: false,
@@ -36,20 +31,6 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING,
-      },
-      cityId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        foreignKey: true,
-        references: { model: "Cities", key: "id" },
-      },
-      address: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      pincode: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

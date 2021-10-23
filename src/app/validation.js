@@ -19,13 +19,16 @@ const loginSchema = Joi.object({
 // });
 
 const cakeSchema = Joi.object({
-  name: Joi.string().required(),
+  cakeName: Joi.string().required(),
+  planId: Joi.number().required(),
+  description: Joi.string().required(),
   cakeWeight: Joi.string().required(),
   cakePrice: Joi.number().required(),
 });
 
 const eventSchema = Joi.object({
   eventName: Joi.string().required(),
+  planId: Joi.number().required(),
   eventType: Joi.string().lowercase().required(),
   eventDate: Joi.required(),
   phoneNumber: Joi.string()
@@ -43,6 +46,7 @@ const eventSchema = Joi.object({
   memberName: Joi.string(),
   memberOneName: Joi.string(),
   memberTwoName: Joi.string(),
+  cakeMessage: Joi.string(),
 });
 
 module.exports = { loginSchema, cakeSchema, eventSchema };

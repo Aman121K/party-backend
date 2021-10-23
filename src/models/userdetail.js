@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      UserDetail.belongsTo(models.City);
     }
   }
   UserDetail.init(
@@ -28,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING(40),
       },
-      dob: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
       gender: {
         allowNull: false,
         type: DataTypes.ENUM,
@@ -41,20 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         allowNull: false,
         type: DataTypes.STRING,
-      },
-      cityId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        foreigKey: true,
-        references: { model: "City", key: "id" },
-      },
-      address: {
-        allowNull: false,
-        type: DataTypes.TEXT(400),
-      },
-      pincode: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
       },
     },
     {

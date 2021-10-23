@@ -16,11 +16,31 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cake.init(
     {
-      name: { type: DataTypes.STRING, allowNull: false },
-      itemDescription: { type: DataTypes.STRING, allowNull: true },
-      cakeImageUrl: { type: DataTypes.STRING, allowNull: false },
-      cakeWeight: { type: DataTypes.STRING, allowNull: false },
-      cakePrice: { type: DataTypes.INTEGER, allowNull: false },
+      planId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: "Plans", key: "id"
+        }
+      },
+      cakeName: {
+        type: DataTypes.STRING,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      cakeImageUrl: {
+        type: DataTypes.STRING,
+      },
+      cakeWeight: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      cakePrice: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

@@ -14,6 +14,12 @@ module.exports = {
         foreignKey: true,
         references: { model: "Users", key: "id" },
       },
+      planId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: { model: "Plans", key: "id" },
+      },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,

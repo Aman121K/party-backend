@@ -8,10 +8,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      planId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: "Plans", key: "id"
+        }
+      },
+      cakeName: {
         type: Sequelize.STRING,
       },
-      itemDescription: {
+      description: {
         type: Sequelize.STRING,
       },
       cakeImageUrl: {

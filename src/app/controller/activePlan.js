@@ -27,23 +27,10 @@ module.exports = {
     try {
       const result = await models.ActivePlan.findAll({
         where: { userId },
-        attributes: { exclude: ["cakeId", "userId", "itemId"] },
         include: [
           {
-            model: models.Cake,
-            required: true,
-            as: "cake",
-            attributes: ["name", "cakeImageUrl"],
-          },
-          {
-            model: models.Item,
-            required: true,
-            as: "item",
-            attributes: ["itemName"],
-          },
-          {
             model: models.Event,
-            attributes: ["eventName", "eventType", "eventDate"],
+            // attributes: ["eventName", "eventType", "eventDate"],
             through: { attributes: [] },
           },
         ],

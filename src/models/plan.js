@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       Plan.belongsToMany(models.Cake, {
         through: "PlanCake", as: "cakes"
       });
+      Plan.hasMany(models.Event, { as: "events" })
     }
   }
   Plan.init(

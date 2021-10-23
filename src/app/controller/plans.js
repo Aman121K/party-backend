@@ -2,6 +2,16 @@ const models = require("../../models");
 const { sequelize } = require("../../models");
 
 module.exports = {
+  planEvents: async (req, res, next) => {
+    const body = req.body;
+    const userId = req.payload.aud;
+    try {
+      const result = await models.Plan.findAll({ where: { userId } })
+      res.status({ status: "success", results: result })
+    } catch (error) {
+      next(error)
+    }
+  },
   create: async (req, res, next) => {
     const body = req.body;
 

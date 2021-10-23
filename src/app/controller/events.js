@@ -20,6 +20,11 @@ module.exports = {
 
           },
           {
+            model: models.Plan,
+            as: "planDetails",
+            attributes: ["planName"]
+          },
+          {
             model: models.EventUtilities,
             as: "utilities"
           },
@@ -64,13 +69,16 @@ module.exports = {
       cakeName,
       memberOneName,
       memberTwoName,
-      eventUtilities
+      eventUtilities,
+      cakeMessage,
+      planId
     } = req.body;
 
     let createEvent, createEventDetails, eventUtilitiesData;
     try {
       await eventSchema.validateAsync({
         eventName,
+        planId,
         eventType,
         eventDate,
         phoneNumber,
@@ -78,6 +86,7 @@ module.exports = {
         eventTimeId,
         pincode,
         cakeImageUrl,
+        cakeMessage,
         cakeName,
         cityId,
         memberName,
@@ -91,6 +100,7 @@ module.exports = {
         createEvent = await models.Event.create(
           {
             eventName,
+            planId,
             eventType,
             eventDate,
             eventTimeId,
@@ -104,11 +114,21 @@ module.exports = {
           { transaction: t }
         );
 
+        await models.ActivePlanEvent.create(
+          {
+            eventId: createEvent.id,
+            activePlanId: planId,
+
+          },
+          { transaction: t }
+        );
+
         createEventDetails = await models.EventDetail.create(
           {
             eventId: createEvent.id,
             gender,
             memberName,
+            cakeMessage,
             memberOneName,
             memberTwoName,
             cakeImageUrl,

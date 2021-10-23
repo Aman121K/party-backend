@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       Event.belongsTo(models.City, { foreignKey: "cityId", as: "city" });
       Event.belongsTo(models.EventTime, { foreignKey: "eventTimeId", as: "eventTime" });
+      Event.belongsTo(models.Plan, { foreignKey: "planId", as: "planDetails" });
     }
   }
   Event.init(
@@ -26,6 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       eventName: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      planId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: { model: "Plans", key: "id" },
       },
       eventType: {
         type: DataTypes.ENUM,

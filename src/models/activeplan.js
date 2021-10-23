@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: "itemId",
       //   as: "item",
       // });
-      // ActivePlan.belongsToMany(models.Event, {
-      //   through: "ActivePlanEvents",
-      // });
+      ActivePlan.belongsToMany(models.Event, {
+        through: "ActivePlanEvents",
+      });
     }
   }
   ActivePlan.init(

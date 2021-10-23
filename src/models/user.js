@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.UserDetail, {
         foreignKey: "userId",
       });
+      User.hasOne(models.ActivePlan, {
+        foreignKey: "userId",
+      });
     }
   }
   User.init(

@@ -26,8 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "Male",
       },
       memberOneName: {
-
         type: DataTypes.STRING,
+      },
+      cakeMessage: {
+        type: DataTypes.STRING(50),
       },
       memberTwoName: {
         type: DataTypes.STRING,
