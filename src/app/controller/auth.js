@@ -6,14 +6,14 @@ const { token } = require("morgan");
 
 module.exports = {
   login: async (req, res, next) => {
-    let addUser
+    let addUser, isPlanPurchased;
     try {
       await loginSchema.validateAsync(req.body);
       const user = await models.User.findOne({
         where: { phone: req.body.phone },
         include: [
           {
-            model: models.ActivePlan,
+            model: models.ActivePlan
           }
         ]
       });
@@ -29,11 +29,18 @@ module.exports = {
         user ? user.id.toString() : addUser.id.toString(),
         process.env.USER_ACCESS_TOKEN_SECRET
       );
+      if (user) {
+        if (user.ActivePlan === null) {
+          isPlanPurchased = false;
+        } else {
+          isPlanPurchased = true;
+        }
+      }
 
       res.status(200).json({
         status: "success",
         token: token,
-        isPlanPurchased: user?.ActivePlan === null ? false : true
+        isPlanPurchased
       });
     } catch (error) {
       if (error.isJoi) error.status = 422;
@@ -48,5 +55,5 @@ module.exports = {
     } catch (error) {
       next(error);
     }
-  },
+  }
 };

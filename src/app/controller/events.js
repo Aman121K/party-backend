@@ -16,8 +16,7 @@ module.exports = {
             model: models.EventDetail,
             required: true,
             as: "details",
-            attributes: { exclude: ["eventId"] },
-
+            attributes: { exclude: ["eventId"] }
           },
           {
             model: models.Plan,
@@ -32,20 +31,20 @@ module.exports = {
             model: models.EventTime,
             required: true,
             as: "eventTime",
-            attributes: ["time"],
+            attributes: ["time"]
           },
           {
             model: models.City,
             required: true,
             as: "city",
-            attributes: { exclude: ["id"] },
-          },
-        ],
+            attributes: { exclude: ["id"] }
+          }
+        ]
       });
       res.status(200).json({
         status: "success",
         results: result.length,
-        events: result,
+        events: result
       });
     } catch (error) {
       console.log(error);
@@ -71,7 +70,8 @@ module.exports = {
       memberTwoName,
       eventUtilities,
       cakeMessage,
-      planId
+      planId,
+      activePlanId
     } = req.body;
 
     let createEvent, createEventDetails, eventUtilitiesData;
@@ -79,6 +79,7 @@ module.exports = {
       await eventSchema.validateAsync({
         eventName,
         planId,
+        activePlanId,
         eventType,
         eventDate,
         phoneNumber,
@@ -93,7 +94,7 @@ module.exports = {
         eventUtilities,
         gender,
         memberOneName,
-        memberTwoName,
+        memberTwoName
       });
 
       await sequelize.transaction(async (t) => {
@@ -101,6 +102,7 @@ module.exports = {
           {
             eventName,
             planId,
+            activePlanId,
             eventType,
             eventDate,
             eventTimeId,
@@ -108,8 +110,7 @@ module.exports = {
             cityId,
             address,
             pincode,
-
-            userId: req.payload.aud,
+            userId: req.payload.aud
           },
           { transaction: t }
         );
@@ -117,8 +118,7 @@ module.exports = {
         await models.ActivePlanEvent.create(
           {
             eventId: createEvent.id,
-            activePlanId: planId,
-
+            activePlanId: planId
           },
           { transaction: t }
         );
@@ -132,7 +132,7 @@ module.exports = {
             memberOneName,
             memberTwoName,
             cakeImageUrl,
-            cakeName,
+            cakeName
           },
           { transaction: t }
         );
@@ -143,14 +143,16 @@ module.exports = {
         });
 
         eventUtilitiesData = await models.EventUtilities.bulkCreate(utilities, {
-          transaction: t,
+          transaction: t
         });
-
       });
 
-      res
-        .status(201)
-        .json({ status: "success", createEvent, createEventDetails, eventUtilitiesData });
+      res.status(201).json({
+        status: "success",
+        createEvent,
+        createEventDetails,
+        eventUtilitiesData
+      });
     } catch (error) {
       if (error.isJoi) error.status = 422;
       next(error);
@@ -170,13 +172,13 @@ module.exports = {
             where: {
               [Op.and]: [
                 {
-                  id: eventId,
+                  id: eventId
                 },
                 {
-                  userId: userId,
-                },
-              ],
-            },
+                  userId: userId
+                }
+              ]
+            }
           },
           { transaction: t }
         );
@@ -205,7 +207,7 @@ module.exports = {
     try {
       const event = await models.Event.destroy(
         {
-          where: { [Op.and]: [{ id: eventId }, { userId }] },
+          where: { [Op.and]: [{ id: eventId }, { userId }] }
         },
         { transaction: t }
       );
@@ -214,12 +216,12 @@ module.exports = {
 
       res.status(200).json({
         status: "success",
-        message: "event deleted",
+        message: "event deleted"
       });
     } catch (error) {
       await t.rollback();
       console.log(error);
       next(error);
     }
-  },
+  }
 };

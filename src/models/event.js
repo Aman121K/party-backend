@@ -11,13 +11,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Event.hasOne(models.EventDetail, {
         foreignKey: "eventId",
-        as: "details",
+        as: "details"
       });
       Event.hasMany(models.EventUtilities, {
-        as: "utilities",
+        as: "utilities"
       });
       Event.belongsTo(models.City, { foreignKey: "cityId", as: "city" });
-      Event.belongsTo(models.EventTime, { foreignKey: "eventTimeId", as: "eventTime" });
+      Event.belongsTo(models.EventTime, {
+        foreignKey: "eventTimeId",
+        as: "eventTime"
+      });
       Event.belongsTo(models.Plan, { foreignKey: "planId", as: "planDetails" });
     }
   }
@@ -26,54 +29,72 @@ module.exports = (sequelize, DataTypes) => {
       userId: { type: DataTypes.INTEGER, allowNull: false },
       eventName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       planId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
-        references: { model: "Plans", key: "id" },
+        references: { model: "Plans", key: "id" }
+      },
+      activePlanId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: { model: "ActivePlans", key: "id" }
       },
       eventType: {
         type: DataTypes.ENUM,
         allowNull: false,
-        values: ["birthday", "anniversary"],
-        defaultValue: "birthday",
+        values: [
+          "birthday",
+          "anniversary",
+          "promotion",
+          "pregnancy",
+          "wedding",
+          "valentines day",
+          "christmas",
+          "new year",
+          "teachers day",
+          "childrens day",
+          "farewell"
+        ],
+        defaultValue: "birthday"
       },
       eventDate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: false
       },
       phoneNumber: {
         type: DataTypes.STRING(13),
-        allowNull: false,
+        allowNull: false
       },
       cityId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
-        references: { model: "Cities", key: "id" },
+        references: { model: "Cities", key: "id" }
       },
       eventTimeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
-        references: { model: "EventTimes", key: "id" },
+        references: { model: "EventTimes", key: "id" }
       },
 
       address: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: false
       },
       pincode: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     },
 
     {
       sequelize,
-      modelName: "Event",
+      modelName: "Event"
     }
   );
   return Event;
