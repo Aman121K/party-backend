@@ -205,9 +205,15 @@ module.exports = {
     const t = await sequelize.transaction();
 
     try {
-      const event = await models.Event.destroy(
+      await models.Event.destroy(
         {
           where: { [Op.and]: [{ id: eventId }, { userId }] }
+        },
+        { transaction: t }
+      );
+      await models.EventDetail.destroy(
+        {
+          where: { [Op.and]: [{ eventId: eventId }, { userId }] }
         },
         { transaction: t }
       );

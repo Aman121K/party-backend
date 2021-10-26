@@ -29,6 +29,7 @@ const cakeSchema = Joi.object({
 const eventSchema = Joi.object({
   eventName: Joi.string().required(),
   planId: Joi.number().required(),
+  activePlanId: Joi.number().required(),
   eventType: Joi.string().lowercase().required(),
   eventDate: Joi.required(),
   phoneNumber: Joi.string()
