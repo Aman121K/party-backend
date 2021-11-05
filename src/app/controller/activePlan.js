@@ -8,13 +8,18 @@ module.exports = {
     const body = req.body;
     const userId = req.payload.aud;
     try {
-      await models.ActivePlan.create(
-        { ...body, userId },
+      //today's date
+      var someDate = new Date();
+      var numberOfDaysToAdd = body.tenure * 364;
+      const expiresAt = someDate.setDate(
+        someDate.getDate() + numberOfDaysToAdd
       );
+
+      await models.ActivePlan.create({ ...body, userId, expiresAt });
 
       res.status(201).json({
         status: "success",
-        message: "order place and plan created",
+        message: "order place and plan created"
       });
     } catch (error) {
       if (error.isJoi) error.status = 422;
@@ -30,15 +35,24 @@ module.exports = {
         include: [
           {
             model: models.Event,
-            // attributes: ["eventName", "eventType", "eventDate"],
             through: { attributes: [] },
-          },
-        ],
+            include: [
+              {
+                model: models.EventDetail,
+                as: "details"
+              },
+              {
+                model: models.EventUtilities,
+                as: "utilities"
+              }
+            ]
+          }
+        ]
       });
       res.status(200).json({
         status: "success",
         results: result.length,
-        activePlans: result,
+        activePlans: result
       });
     } catch (error) {
       next(error);
@@ -56,28 +70,28 @@ module.exports = {
             model: models.Cake,
             required: true,
             as: "cake",
-            attributes: ["name", "cakeImageUrl"],
+            attributes: ["name", "cakeImageUrl"]
           },
           {
             model: models.Item,
             required: true,
             as: "item",
-            attributes: ["itemName"],
+            attributes: ["itemName"]
           },
           {
             model: models.Event,
             attributes: ["eventName", "eventType", "eventDate"],
-            through: { attributes: [] },
-          },
-        ],
+            through: { attributes: [] }
+          }
+        ]
       });
       res.status(200).json({
         status: "success",
-        activePlan: result,
+        activePlan: result
       });
     } catch (error) {
       console.log(error);
       next(error);
     }
-  },
+  }
 };

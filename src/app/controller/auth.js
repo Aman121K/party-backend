@@ -6,7 +6,7 @@ const { token } = require("morgan");
 
 module.exports = {
   login: async (req, res, next) => {
-    let addUser, isPlanPurchased;
+    let addUser, isPlanPurchased, isUserProfile;
     try {
       await loginSchema.validateAsync(req.body);
       const user = await models.User.findOne({
@@ -14,6 +14,9 @@ module.exports = {
         include: [
           {
             model: models.ActivePlan
+          },
+          {
+            model: models.UserDetail
           }
         ]
       });
@@ -37,10 +40,19 @@ module.exports = {
         }
       }
 
+      if (user) {
+        if (user.UserDetail === null) {
+          isUserProfile = false;
+        } else {
+          isUserProfile = true;
+        }
+      }
+
       res.status(200).json({
         status: "success",
         token: token,
-        isPlanPurchased
+        isPlanPurchased,
+        isUserProfile
       });
     } catch (error) {
       if (error.isJoi) error.status = 422;

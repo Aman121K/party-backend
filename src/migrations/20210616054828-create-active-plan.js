@@ -18,6 +18,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      planName: {
+        type: Sequelize.STRING(30),
+        allowNull: true,
+      },
       noOfEvents: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -28,6 +32,10 @@ module.exports = {
       },
       tenure: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      expiresAt: {
+        type: Sequelize.DATE,
         allowNull: false,
       },
       transactionId: {

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       //   as: "item",
       // });
       ActivePlan.belongsToMany(models.Event, {
-        through: "ActivePlanEvents",
+        through: "ActivePlanEvents"
       });
     }
   }
@@ -25,32 +25,40 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
-        references: { model: "Users", key: "id" },
+        references: { model: "Users", key: "id" }
       },
       planType: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
+      },
+      planName: {
+        type: DataTypes.STRING(30),
+        allowNull: true
       },
       noOfEvents: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
       },
       price: {
         type: DataTypes.DECIMAL(10, 0),
-        allowNull: false,
+        allowNull: false
       },
       tenure: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
+      },
+      expiresAt: {
+        type: DataTypes.DATE,
+        allowNull: false
       },
       transactionId: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     },
     {
       sequelize,
-      modelName: "ActivePlan",
+      modelName: "ActivePlan"
     }
   );
   return ActivePlan;

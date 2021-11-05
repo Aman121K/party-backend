@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       User.hasOne(models.UserDetail, {
-        foreignKey: "userId",
+        foreignKey: "userId"
       });
       User.hasOne(models.ActivePlan, {
-        foreignKey: "userId",
+        foreignKey: "userId"
       });
     }
   }
@@ -21,14 +21,14 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [10, 13],
-            msg: "Invalid Phone Number",
-          },
-        },
-      },
+            msg: "Invalid Phone Number"
+          }
+        }
+      }
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "User"
     }
   );
   return User;

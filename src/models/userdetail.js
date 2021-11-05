@@ -17,30 +17,26 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         foreigKey: true,
-        references: { model: "User", key: "id" },
+        references: { model: "User", key: "id" }
       },
-      firstName: {
+      userName: {
         allowNull: false,
-        type: DataTypes.STRING(40),
-      },
-      lastName: {
-        allowNull: false,
-        type: DataTypes.STRING(40),
+        type: DataTypes.STRING(40)
       },
       gender: {
         allowNull: false,
         type: DataTypes.ENUM,
         values: ["Male", "Female", "Other"],
-        defaultValue: "Male",
+        defaultValue: "Male"
       },
       email: {
         allowNull: false,
-        type: DataTypes.STRING,
-      },
+        type: DataTypes.STRING
+      }
     },
     {
       sequelize,
-      modelName: "UserDetail",
+      modelName: "UserDetail"
     }
   );
   return UserDetail;

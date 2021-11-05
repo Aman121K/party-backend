@@ -14,11 +14,7 @@ module.exports = {
         foreignKey: true,
         references: { model: "Users", key: "id" },
       },
-      firstName: {
-        allowNull: false,
-        type: Sequelize.STRING(40),
-      },
-      lastName: {
+      userName: {
         allowNull: false,
         type: Sequelize.STRING(40),
       },
