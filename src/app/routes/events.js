@@ -4,6 +4,7 @@ const { isAuth } = require("../../middlewares/auth");
 const { verifyUserAccessToken } = require("../../middlewares/jwt");
 
 router.get("/userEvents", verifyUserAccessToken, events.userEvents);
+router.get("/userTimeLine", verifyUserAccessToken, events.userTimeline);
 router.post("/create", verifyUserAccessToken, events.createEvent);
 router.patch(
   "/update/:eventId",

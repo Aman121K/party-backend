@@ -3,6 +3,7 @@ const { logOut, logIn } = require("../../middlewares/auth");
 const { loginSchema } = require("../validation");
 const { signAccessToken } = require("../../middlewares/jwt");
 const { token } = require("morgan");
+const { sendMail } = require("../../utils/mailer");
 
 module.exports = {
   login: async (req, res, next) => {
@@ -26,6 +27,7 @@ module.exports = {
       } else {
         addUser = await models.User.create({ phone: req.body.phone });
         logIn(req, addUser.id);
+        // sendMail();
       }
 
       const token = await signAccessToken(

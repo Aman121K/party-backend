@@ -1,3 +1,4 @@
+const { addYears } = require("date-fns");
 const { Op } = require("sequelize");
 const { sequelize } = require("../../models");
 const models = require("../../models");
@@ -74,7 +75,7 @@ module.exports = {
       activePlanId
     } = req.body;
 
-    let createEvent, createEventDetails, eventUtilitiesData;
+    let createEvent, createEventDetails, eventUtilitiesData, timelineData;
     try {
       await eventSchema.validateAsync({
         eventName,
@@ -145,13 +146,35 @@ module.exports = {
         eventUtilitiesData = await models.EventUtilities.bulkCreate(utilities, {
           transaction: t
         });
+
+        const activePlanDetail = await models.ActivePlan.findOne(
+          {
+            where: { id: createEvent.activePlanId }
+          },
+          { transaction: t }
+        );
+
+        let timeline = [];
+
+        for (var i = 0; i < activePlanDetail.tenure; i++) {
+          timeline.push({
+            userId: req.payload.aud,
+            eventId: createEvent.id,
+            year: addYears(new Date(activePlanDetail.createdAt), i)
+          });
+        }
+
+        timelineData = await models.Timeline.bulkCreate(timeline, {
+          transaction: t
+        });
       });
 
       res.status(201).json({
         status: "success",
         createEvent,
         createEventDetails,
-        eventUtilitiesData
+        eventUtilitiesData,
+        timelineData
       });
     } catch (error) {
       if (error.isJoi) error.status = 422;
@@ -195,6 +218,58 @@ module.exports = {
       res.status(200).json({ status: "success", result });
     } catch (error) {
       console.log(error);
+    }
+  },
+
+  userTimeline: async (req, res, next) => {
+    const userId = req.payload.aud;
+    try {
+      const result = await models.Timeline.findAll(
+        {
+          include: [
+            {
+              model: models.Event,
+              as: "event",
+              include: [
+                {
+                  model: models.EventDetail,
+                  required: true,
+                  as: "details",
+                  attributes: { exclude: ["eventId"] }
+                },
+                {
+                  model: models.Plan,
+                  as: "planDetails",
+                  attributes: ["planName"]
+                },
+                {
+                  model: models.EventUtilities,
+                  as: "utilities"
+                },
+                {
+                  model: models.EventTime,
+                  required: true,
+                  as: "eventTime",
+                  attributes: ["time"]
+                },
+                {
+                  model: models.City,
+                  required: true,
+                  as: "city",
+                  attributes: { exclude: ["id"] }
+                }
+              ]
+            }
+          ]
+        },
+        { where: { userId } }
+      );
+
+      res.status(200).json({
+        status: "success",
+        results: result
+      });
+    } catch (error) {
       console.log(error);
     }
   },

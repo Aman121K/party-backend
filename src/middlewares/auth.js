@@ -18,7 +18,6 @@ const logOut = (req, res) =>
     if (req.session)
       req.session.destroy((err) => {
         if (err) reject(err);
-
         res.clearCookie(SESSION_OPTIONS.name);
         resolve();
       });

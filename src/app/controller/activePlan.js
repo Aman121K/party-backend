@@ -36,6 +36,7 @@ module.exports = {
           {
             model: models.Event,
             through: { attributes: [] },
+            attributes: { exclude: ["PlanId"] },
             include: [
               {
                 model: models.EventDetail,
