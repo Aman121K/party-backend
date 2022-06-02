@@ -40,14 +40,11 @@ app.use(morgan("common"));
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("imageUrl")
 );
-
 // eleminates the null fields from the response object
 // app.set("json replacer", (k, v) => (v === null ? undefined : v));
-
 app.get("/", (req, res) => {
   res.send("test");
 });
-
 // routes
 app.use(`/api/v1/banner`, banner);
 app.use(`/api/v1/city`, city);
